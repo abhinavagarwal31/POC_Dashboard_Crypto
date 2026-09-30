@@ -32,6 +32,21 @@ const titleOf = (txId: string): string => {
 
 const tx = txById;
 
+const minutesBetween = (fromIso: string, toIso: string) =>
+  Math.round((Date.parse(toIso) - Date.parse(fromIso)) / 60_000);
+
+const detailOf = (txId: string): string => {
+  const t = tx(txId);
+  const eth = `${t.amountEth.toFixed(2)} ETH`;
+  if (txId === "t07") {
+    // Sweep delay is measured from the deposit that funded it.
+    return `${eth} · swept ${minutesBetween(tx("t04").timestamp, t.timestamp)} min after deposit`;
+  }
+  if (txId === "t08") return `${eth} equivalent released on Tron`;
+  if (txId === "t05" || txId === "t06") return `${name(t.from)} → ${name(t.to)} · ${eth}`;
+  return eth;
+};
+
 /** Chronological, derived from the transaction list. */
 export const timeline: TimelineEvent[] = [...transactions]
   .sort((a, b) => a.timestamp.localeCompare(b.timestamp))
@@ -40,10 +55,7 @@ export const timeline: TimelineEvent[] = [...transactions]
     timestamp: t.timestamp,
     kind: kindOf(t.id),
     title: titleOf(t.id),
-    detail:
-      t.id === "t05" || t.id === "t06"
-        ? `${name(t.from)} → ${name(t.to)} · ${tx(t.id).amountEth.toFixed(2)} ETH`
-        : `${tx(t.id).amountEth.toFixed(2)} ETH`,
+    detail: detailOf(t.id),
     txId: t.id,
     highlight: { nodeIds: [t.from, t.to], edgeIds: [t.id] },
   }));

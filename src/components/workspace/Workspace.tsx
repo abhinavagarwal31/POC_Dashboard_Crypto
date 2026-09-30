@@ -10,6 +10,7 @@ import { Panel, PanelPlaceholder } from "./Panel";
 import { Inspector } from "@/components/inspector/Inspector";
 import { VaspAttribution } from "@/components/attribution/VaspAttribution";
 import { GRAPH_PANEL_ID } from "./panelIds";
+import { TimelinePanel } from "@/components/timeline/TimelinePanel";
 import { FindingsPanel } from "@/components/findings/FindingsPanel";
 import { TracePath } from "./TracePath";
 import { WorkflowIndicator } from "./WorkflowIndicator";
@@ -60,9 +61,7 @@ function WorkspaceBody({ onRestart }: { onRestart: () => void }) {
         <div className="grid gap-3 lg:h-[440px] lg:grid-cols-3">
           <VaspAttribution />
           <FindingsPanel />
-          <Panel title="Transaction timeline" className="min-h-56">
-            <PanelPlaceholder step={10} text="Transaction timeline" />
-          </Panel>
+          <TimelinePanel />
         </div>
 
         <Panel title="Investigator review · SAHYOG">
