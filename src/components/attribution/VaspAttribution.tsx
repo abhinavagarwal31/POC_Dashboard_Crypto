@@ -4,7 +4,8 @@ import { useState } from "react";
 import { vaspCandidates } from "@/mock";
 import { Panel } from "@/components/workspace/Panel";
 import { CandidateList } from "./CandidateList";
-import { VASP_PANEL_ID, WhyVasp } from "./WhyVasp";
+import { VASP_PANEL_ID } from "@/components/workspace/panelIds";
+import { WhyVasp } from "./WhyVasp";
 
 export function VaspAttribution() {
   const [openId, setOpenId] = useState<string | null>(null);

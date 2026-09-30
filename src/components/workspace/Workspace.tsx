@@ -9,7 +9,8 @@ import { InvestigationProgress } from "./InvestigationProgress";
 import { Panel, PanelPlaceholder } from "./Panel";
 import { Inspector } from "@/components/inspector/Inspector";
 import { VaspAttribution } from "@/components/attribution/VaspAttribution";
-import { GRAPH_PANEL_ID } from "@/components/attribution/WhyVasp";
+import { GRAPH_PANEL_ID } from "./panelIds";
+import { FindingsPanel } from "@/components/findings/FindingsPanel";
 import { TracePath } from "./TracePath";
 import { WorkflowIndicator } from "./WorkflowIndicator";
 import { WorkspaceProvider } from "./WorkspaceContext";
@@ -58,9 +59,7 @@ function WorkspaceBody({ onRestart }: { onRestart: () => void }) {
         {/* Conclusion → evidence → timeline */}
         <div className="grid gap-3 lg:h-[440px] lg:grid-cols-3">
           <VaspAttribution />
-          <Panel title="Findings & evidence" className="min-h-56">
-            <PanelPlaceholder step={9} text="Findings F-001 – F-005 · evidence" />
-          </Panel>
+          <FindingsPanel />
           <Panel title="Transaction timeline" className="min-h-56">
             <PanelPlaceholder step={10} text="Transaction timeline" />
           </Panel>

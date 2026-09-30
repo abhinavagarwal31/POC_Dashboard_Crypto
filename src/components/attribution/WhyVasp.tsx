@@ -4,12 +4,10 @@ import { ArrowLeft, Crosshair } from "lucide-react";
 import type { VaspCandidate } from "@/mock";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { GRAPH_PANEL_ID, VASP_PANEL_ID } from "@/components/workspace/panelIds";
 import { useWorkspace } from "@/components/workspace/WorkspaceContext";
 import { scrollToPanel } from "@/lib/scroll";
 import { ConfidenceBreakdown } from "./ConfidenceBreakdown";
-
-export const VASP_PANEL_ID = "vasp-attribution-panel";
-export const GRAPH_PANEL_ID = "graph-panel";
 
 export function WhyVasp({
   candidate,
