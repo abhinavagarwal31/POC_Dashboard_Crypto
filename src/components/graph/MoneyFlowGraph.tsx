@@ -11,7 +11,6 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { X } from "lucide-react";
-import { tracePaths } from "@/mock";
 import { useWorkspace } from "@/components/workspace/WorkspaceContext";
 import { FlowEdgeView, edgeColor } from "./FlowEdge";
 import {
@@ -104,24 +103,8 @@ export function MoneyFlowGraph() {
       <Background variant={BackgroundVariant.Dots} gap={24} size={1} color="oklch(0.96 0.01 250 / 10%)" />
       <Controls showInteractive={false} position="bottom-left" />
 
-      <FlowPanel position="top-left" className="flex items-center gap-1.5">
-        <span className="label-caps mr-1 hidden text-[9px] sm:inline">Show path</span>
-        {tracePaths.map((p) => (
-          <button
-            key={p.id}
-            type="button"
-            onClick={() =>
-              setHighlight({ label: p.label, nodeIds: p.nodeIds, edgeIds: p.edgeIds })
-            }
-            className="rounded-sm border border-border bg-panel px-2 py-1 text-[10px] font-semibold tracking-wider text-muted-foreground transition-colors hover:border-cyan-accent/60 hover:text-cyan-accent"
-          >
-            {p.label.toUpperCase()}
-          </button>
-        ))}
-      </FlowPanel>
-
       {highlight && (
-        <FlowPanel position="top-center">
+        <FlowPanel position="top-left">
           <button
             type="button"
             onClick={() => setHighlight(null)}

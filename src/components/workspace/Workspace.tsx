@@ -7,6 +7,7 @@ import { CaseHeader } from "./CaseHeader";
 import { CaseSummary } from "./CaseSummary";
 import { InvestigationProgress } from "./InvestigationProgress";
 import { Panel, PanelPlaceholder } from "./Panel";
+import { TracePath } from "./TracePath";
 import { WorkflowIndicator } from "./WorkflowIndicator";
 import { WorkspaceProvider } from "./WorkspaceContext";
 import { MoneyFlowGraph } from "@/components/graph/MoneyFlowGraph";
@@ -29,12 +30,10 @@ function WorkspaceBody({ onRestart }: { onRestart: () => void }) {
       <main className="flex flex-1 flex-col gap-3 p-3">
         {/* Stage: context (left) · money-flow graph with inspector beneath (right) */}
         <div className="grid gap-3 lg:h-[clamp(620px,82vh,880px)] lg:grid-cols-[280px_minmax(0,1fr)]">
-          <div className="flex min-h-0 flex-col gap-3 lg:overflow-y-auto">
+          <div className="flex min-h-0 flex-col gap-3 lg:overflow-y-auto [&>*]:shrink-0">
             <CaseSummary />
             <InvestigationProgress />
-            <Panel title="Trace path">
-              <PanelPlaceholder step={6} text="Trace path" />
-            </Panel>
+            <TracePath />
           </div>
 
           <div className="flex min-h-0 flex-col gap-3">
