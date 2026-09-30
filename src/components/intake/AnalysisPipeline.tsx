@@ -7,8 +7,8 @@ import { analysisSteps, investigationCase } from "@/mock";
 import { shortAddr } from "@/lib/format";
 
 /** Mock latency per step (ms) so the pipeline feels like real work. */
-const STEP_DELAYS = [900, 1300, 1200, 1100, 1400, 1000, 1200];
-const HANDOFF_DELAY = 800;
+const STEP_DELAYS = [600, 800, 750, 700, 900, 650, 800];
+const HANDOFF_DELAY = 600;
 
 export function AnalysisPipeline({ onComplete }: { onComplete: () => void }) {
   const total = analysisSteps.length;

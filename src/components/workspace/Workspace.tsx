@@ -37,17 +37,17 @@ function WorkspaceBody({ onRestart }: { onRestart: () => void }) {
       <main className="flex flex-1 flex-col gap-3 p-3">
         {/* Stage: context (left) · money-flow graph with inspector beneath (right) */}
         <div className="grid gap-3 lg:h-[clamp(620px,82vh,880px)] lg:grid-cols-[280px_minmax(0,1fr)]">
-          <div className="flex min-h-0 flex-col gap-3 lg:overflow-y-auto [&>*]:shrink-0">
+          <div className="order-2 flex min-h-0 flex-col gap-3 lg:order-1 lg:overflow-y-auto [&>*]:shrink-0">
             <CaseSummary />
             <InvestigationProgress />
             <TracePath />
           </div>
 
-          <div className="flex min-h-0 flex-col gap-3">
+          <div className="order-1 flex min-h-0 flex-col gap-3 lg:order-2">
             <Panel
               id={GRAPH_PANEL_ID}
               title="Money-flow graph"
-              className="h-[460px] lg:h-auto lg:flex-1"
+              className="h-[520px] lg:h-auto lg:flex-1"
               bodyClassName="flex flex-col overflow-hidden p-0"
             >
               <div className="min-h-0 flex-1">

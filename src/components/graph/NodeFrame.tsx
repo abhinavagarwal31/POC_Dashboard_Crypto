@@ -75,23 +75,25 @@ export function NodeFrame({
         </span>
       </div>
 
-      <div className="min-w-0 space-y-0.5">{children}</div>
+      <div className="relative min-w-0 space-y-0.5">
+        {children}
+        {chain && (
+          <span className="font-addr absolute top-0.5 right-0 rounded-sm border border-border px-1 text-[10px] text-muted-foreground">
+            {CHAIN_CHIP[chain]}
+          </span>
+        )}
+      </div>
 
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center">
         {tag && (
           <span
             className={cn(
-              "flex min-w-0 items-center gap-1 rounded-sm border px-1.5 py-px text-[10px] font-semibold tracking-wide",
+              "flex min-w-0 items-center gap-1 rounded-sm border px-1.5 py-px text-[10px] font-semibold tracking-normal",
               TAG_TONES[tag.tone],
             )}
           >
             {TagIcon && <TagIcon className="size-2.5 shrink-0" />}
             <span className="truncate">{tag.text}</span>
-          </span>
-        )}
-        {chain && (
-          <span className="font-addr ml-auto shrink-0 rounded-sm border border-border px-1 text-[10px] text-muted-foreground">
-            {CHAIN_CHIP[chain]}
           </span>
         )}
       </div>
