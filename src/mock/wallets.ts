@@ -3,7 +3,8 @@ import type { WalletNode } from "./types";
 /**
  * Nodes of the traced sub-graph. The full investigation found 42 related
  * addresses; these are the ones on the traced paths.
- * Positions lay the graph out left → right (source → destination).
+ * Positions lay the graph out left → right (source → destination); the VASP
+ * sits between the hot wallet and the Tron wallet, which both feed it.
  */
 export const wallets: WalletNode[] = [
   {
@@ -15,7 +16,7 @@ export const wallets: WalletNode[] = [
     chain: "ethereum",
     txCount: 137,
     flag: "HIGH INTEREST",
-    position: { x: 0, y: 220 },
+    position: { x: 0, y: 160 },
   },
   {
     id: "walletA",
@@ -26,7 +27,7 @@ export const wallets: WalletNode[] = [
     chain: "ethereum",
     txCount: 9,
     flag: "REQUIRES REVIEW",
-    position: { x: 310, y: 220 },
+    position: { x: 292, y: 160 },
   },
   {
     id: "walletB",
@@ -37,7 +38,7 @@ export const wallets: WalletNode[] = [
     chain: "ethereum",
     txCount: 14,
     flag: "REQUIRES REVIEW",
-    position: { x: 620, y: 220 },
+    position: { x: 584, y: 160 },
   },
   {
     id: "unknownWallet",
@@ -48,7 +49,7 @@ export const wallets: WalletNode[] = [
     chain: "ethereum",
     txCount: 23,
     flag: "REQUIRES REVIEW",
-    position: { x: 310, y: 470 },
+    position: { x: 292, y: 450 },
   },
   {
     id: "mixer",
@@ -58,7 +59,7 @@ export const wallets: WalletNode[] = [
     address: "0x5C1d8e93A7b04F62d1c5E9a3078B4f6d2C1e90a3",
     chain: "ethereum",
     flag: "OBFUSCATION",
-    position: { x: 950, y: 20 },
+    position: { x: 876, y: 0 },
   },
   {
     id: "deposit",
@@ -69,7 +70,7 @@ export const wallets: WalletNode[] = [
     chain: "ethereum",
     txCount: 31,
     clusterId: "cluster-exchange-x",
-    position: { x: 950, y: 220 },
+    position: { x: 876, y: 160 },
   },
   {
     id: "hot",
@@ -79,7 +80,7 @@ export const wallets: WalletNode[] = [
     address: "0x91F2b60E4d7Ac35f98D10e2B74c6A3f59d1CA82D",
     chain: "ethereum",
     clusterId: "cluster-exchange-x",
-    position: { x: 1260, y: 220 },
+    position: { x: 1168, y: 160 },
   },
   {
     id: "bridge",
@@ -88,7 +89,7 @@ export const wallets: WalletNode[] = [
     role: "Ethereum → Tron",
     address: "0xB71C04e9d2F3a86B5c170dE92a4f63C8b15D07e4",
     chain: "ethereum",
-    position: { x: 950, y: 440 },
+    position: { x: 876, y: 450 },
   },
   {
     id: "tronWallet",
@@ -100,7 +101,7 @@ export const wallets: WalletNode[] = [
     txCount: 4,
     flag: "REQUIRES REVIEW",
     clusterId: "cluster-exchange-x",
-    position: { x: 1260, y: 440 },
+    position: { x: 1168, y: 450 },
   },
   {
     id: "vaspX",
@@ -108,8 +109,7 @@ export const wallets: WalletNode[] = [
     label: "VASP",
     role: "Exchange X",
     chain: "ethereum",
-    clusterId: "cluster-exchange-x",
-    position: { x: 1570, y: 330 },
+    position: { x: 1168, y: 300 },
   },
 ];
 

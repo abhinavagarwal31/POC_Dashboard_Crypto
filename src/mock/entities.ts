@@ -4,7 +4,7 @@ export const clusters: Cluster[] = [
   {
     id: "cluster-exchange-x",
     label: "Exchange X cluster",
-    memberIds: ["deposit", "hot", "tronWallet", "vaspX"],
+    memberIds: ["deposit", "hot", "tronWallet"],
   },
 ];
 

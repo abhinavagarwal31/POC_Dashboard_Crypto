@@ -8,8 +8,11 @@ import { CaseSummary } from "./CaseSummary";
 import { InvestigationProgress } from "./InvestigationProgress";
 import { Panel, PanelPlaceholder } from "./Panel";
 import { WorkflowIndicator } from "./WorkflowIndicator";
+import { WorkspaceProvider } from "./WorkspaceContext";
+import { MoneyFlowGraph } from "@/components/graph/MoneyFlowGraph";
+import { GraphLegend } from "@/components/graph/GraphLegend";
 
-export function Workspace({ onRestart }: { onRestart: () => void }) {
+function WorkspaceBody({ onRestart }: { onRestart: () => void }) {
   // Trace and attribution are complete; the investigator now verifies.
   const [stage] = useState<WorkflowStageKey>("verify");
 
@@ -24,8 +27,8 @@ export function Workspace({ onRestart }: { onRestart: () => void }) {
       <WorkflowIndicator current={stage} />
 
       <main className="flex flex-1 flex-col gap-3 p-3">
-        {/* Stage: context (left) · money-flow graph (centre) · inspector (right) */}
-        <div className="grid gap-3 lg:h-[clamp(540px,64vh,780px)] lg:grid-cols-[300px_minmax(0,1fr)_340px]">
+        {/* Stage: context (left) · money-flow graph with inspector beneath (right) */}
+        <div className="grid gap-3 lg:h-[clamp(620px,82vh,880px)] lg:grid-cols-[280px_minmax(0,1fr)]">
           <div className="flex min-h-0 flex-col gap-3 lg:overflow-y-auto">
             <CaseSummary />
             <InvestigationProgress />
@@ -34,15 +37,21 @@ export function Workspace({ onRestart }: { onRestart: () => void }) {
             </Panel>
           </div>
 
-          <Panel title="Money-flow graph" className="min-h-[420px]" bodyClassName="p-0">
-            <div className="h-full p-3">
-              <PanelPlaceholder step={5} text="Money-flow graph (React Flow)" />
-            </div>
-          </Panel>
-
-          <Panel title="Inspector" className="min-h-[240px]">
-            <PanelPlaceholder step={7} text="Address intelligence · transaction · cross-chain" />
-          </Panel>
+          <div className="flex min-h-0 flex-col gap-3">
+            <Panel
+              title="Money-flow graph"
+              className="h-[460px] lg:h-auto lg:flex-1"
+              bodyClassName="flex flex-col overflow-hidden p-0"
+            >
+              <div className="min-h-0 flex-1">
+                <MoneyFlowGraph />
+              </div>
+              <GraphLegend />
+            </Panel>
+            <Panel title="Inspector" className="min-h-[150px] lg:h-[190px]">
+              <PanelPlaceholder step={7} text="Address intelligence · transaction · cross-chain" />
+            </Panel>
+          </div>
         </div>
 
         {/* Conclusion → evidence → timeline */}
@@ -63,5 +72,13 @@ export function Workspace({ onRestart }: { onRestart: () => void }) {
         </Panel>
       </main>
     </motion.div>
+  );
+}
+
+export function Workspace({ onRestart }: { onRestart: () => void }) {
+  return (
+    <WorkspaceProvider>
+      <WorkspaceBody onRestart={onRestart} />
+    </WorkspaceProvider>
   );
 }
