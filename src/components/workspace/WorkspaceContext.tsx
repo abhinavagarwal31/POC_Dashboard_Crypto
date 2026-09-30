@@ -14,6 +14,8 @@ import type { Highlight } from "@/mock";
 export interface ActiveHighlight extends Highlight {
   /** What produced the highlight, e.g. "Exchange X · evidence" */
   label: string;
+  /** DOM id of the panel that produced it, so the graph can link back. */
+  sourceId?: string;
 }
 
 interface WorkspaceState {

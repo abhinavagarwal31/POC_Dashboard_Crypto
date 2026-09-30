@@ -8,6 +8,8 @@ import { CaseSummary } from "./CaseSummary";
 import { InvestigationProgress } from "./InvestigationProgress";
 import { Panel, PanelPlaceholder } from "./Panel";
 import { Inspector } from "@/components/inspector/Inspector";
+import { VaspAttribution } from "@/components/attribution/VaspAttribution";
+import { GRAPH_PANEL_ID } from "@/components/attribution/WhyVasp";
 import { TracePath } from "./TracePath";
 import { WorkflowIndicator } from "./WorkflowIndicator";
 import { WorkspaceProvider } from "./WorkspaceContext";
@@ -39,6 +41,7 @@ function WorkspaceBody({ onRestart }: { onRestart: () => void }) {
 
           <div className="flex min-h-0 flex-col gap-3">
             <Panel
+              id={GRAPH_PANEL_ID}
               title="Money-flow graph"
               className="h-[460px] lg:h-auto lg:flex-1"
               bodyClassName="flex flex-col overflow-hidden p-0"
@@ -53,10 +56,8 @@ function WorkspaceBody({ onRestart }: { onRestart: () => void }) {
         </div>
 
         {/* Conclusion → evidence → timeline */}
-        <div className="grid gap-3 lg:grid-cols-3">
-          <Panel title="VASP attribution" className="min-h-56">
-            <PanelPlaceholder step={8} text="Candidate VASPs · why this VASP?" />
-          </Panel>
+        <div className="grid gap-3 lg:h-[440px] lg:grid-cols-3">
+          <VaspAttribution />
           <Panel title="Findings & evidence" className="min-h-56">
             <PanelPlaceholder step={9} text="Findings F-001 – F-005 · evidence" />
           </Panel>

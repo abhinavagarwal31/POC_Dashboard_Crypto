@@ -3,12 +3,14 @@ import { cn } from "@/lib/utils";
 
 /** Bordered workspace panel with a small-caps title bar. */
 export function Panel({
+  id,
   title,
   action,
   className,
   bodyClassName,
   children,
 }: {
+  id?: string;
   title: string;
   action?: ReactNode;
   className?: string;
@@ -17,8 +19,9 @@ export function Panel({
 }) {
   return (
     <section
+      id={id}
       className={cn(
-        "flex min-h-0 flex-col rounded-md border border-border bg-panel",
+        "flex min-h-0 scroll-mt-3 flex-col rounded-md border border-border bg-panel",
         className,
       )}
     >

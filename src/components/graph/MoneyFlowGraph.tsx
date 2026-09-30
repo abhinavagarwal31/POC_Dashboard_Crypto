@@ -11,6 +11,7 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { X } from "lucide-react";
+import { scrollToPanel } from "@/lib/scroll";
 import { useWorkspace } from "@/components/workspace/WorkspaceContext";
 import { FlowEdgeView, edgeColor } from "./FlowEdge";
 import {
@@ -104,7 +105,7 @@ export function MoneyFlowGraph() {
       <Controls showInteractive={false} position="bottom-left" />
 
       {highlight && (
-        <FlowPanel position="top-left">
+        <FlowPanel position="top-left" className="flex items-center gap-1.5">
           <button
             type="button"
             onClick={() => setHighlight(null)}
@@ -113,6 +114,15 @@ export function MoneyFlowGraph() {
             HIGHLIGHT · {highlight.label.toUpperCase()}
             <X className="size-3" />
           </button>
+          {highlight.sourceId && (
+            <button
+              type="button"
+              onClick={() => scrollToPanel(highlight.sourceId!)}
+              className="rounded-sm border border-border bg-panel px-2.5 py-1 text-[10px] font-semibold tracking-wider text-muted-foreground hover:text-foreground"
+            >
+              ↓ BACK TO EVIDENCE
+            </button>
+          )}
         </FlowPanel>
       )}
     </ReactFlow>
