@@ -7,6 +7,7 @@ import { CaseHeader } from "./CaseHeader";
 import { CaseSummary } from "./CaseSummary";
 import { InvestigationProgress } from "./InvestigationProgress";
 import { Panel, PanelPlaceholder } from "./Panel";
+import { Inspector } from "@/components/inspector/Inspector";
 import { TracePath } from "./TracePath";
 import { WorkflowIndicator } from "./WorkflowIndicator";
 import { WorkspaceProvider } from "./WorkspaceContext";
@@ -47,9 +48,7 @@ function WorkspaceBody({ onRestart }: { onRestart: () => void }) {
               </div>
               <GraphLegend />
             </Panel>
-            <Panel title="Inspector" className="min-h-[150px] lg:h-[190px]">
-              <PanelPlaceholder step={7} text="Address intelligence · transaction · cross-chain" />
-            </Panel>
+            <Inspector />
           </div>
         </div>
 
