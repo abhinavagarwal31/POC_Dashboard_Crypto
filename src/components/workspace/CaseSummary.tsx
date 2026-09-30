@@ -1,6 +1,14 @@
 import { investigationCase as c } from "@/mock";
 import { shortAddr } from "@/lib/format";
 import { Panel } from "./Panel";
+import { useWorkspace } from "./WorkspaceContext";
+
+const STATUS = {
+  pending: c.status,
+  further: "Further investigation",
+  rejected: "Attribution rejected",
+  confirmed: "VASP confirmed",
+} as const;
 
 function Row({
   label,
@@ -22,11 +30,14 @@ function Row({
 }
 
 export function CaseSummary() {
+  const { decision, sahyogStage } = useWorkspace();
+  const status =
+    sahyogStage === "prepared" ? "SAHYOG request prepared" : STATUS[decision];
   return (
     <Panel title="Case summary">
       <dl>
         <Row label="Status">
-          <span className="text-cyan-accent">{c.status}</span>
+          <span className="text-cyan-accent">{status}</span>
         </Row>
         <Row label="Subject wallet" mono>
           {shortAddr(c.subjectAddress)}

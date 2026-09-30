@@ -18,7 +18,16 @@ export interface ActiveHighlight extends Highlight {
   sourceId?: string;
 }
 
+export type Decision = "pending" | "confirmed" | "further" | "rejected";
+/** request: confirmed, request card shown · preview: full request · prepared: done */
+export type SahyogStage = "request" | "preview" | "prepared";
+
 interface WorkspaceState {
+  decision: Decision;
+  sahyogStage: SahyogStage | null;
+  /** Record the investigator's decision. Only confirming starts a SAHYOG request. */
+  decide: (d: Decision) => void;
+  setSahyogStage: (s: SahyogStage) => void;
   selectedNodeId: string | null;
   /** Graph link id (a transaction id, or an attribution link id). */
   selectedEdgeId: string | null;
@@ -35,6 +44,13 @@ export function WorkspaceProvider({ children }: { children: ReactNode }) {
   const [selectedNodeId, setNode] = useState<string | null>(null);
   const [selectedEdgeId, setEdge] = useState<string | null>(null);
   const [highlight, setHighlight] = useState<ActiveHighlight | null>(null);
+  const [decision, setDecision] = useState<Decision>("pending");
+  const [sahyogStage, setSahyogStage] = useState<SahyogStage | null>(null);
+
+  const decide = useCallback((d: Decision) => {
+    setDecision(d);
+    setSahyogStage(d === "confirmed" ? "request" : null);
+  }, []);
 
   // A node and an edge are never selected at the same time.
   const selectNode = useCallback((id: string | null) => {
@@ -52,6 +68,10 @@ export function WorkspaceProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo(
     () => ({
+      decision,
+      sahyogStage,
+      decide,
+      setSahyogStage,
       selectedNodeId,
       selectedEdgeId,
       highlight,
@@ -60,7 +80,7 @@ export function WorkspaceProvider({ children }: { children: ReactNode }) {
       setHighlight,
       clearSelection,
     }),
-    [selectedNodeId, selectedEdgeId, highlight, selectNode, selectEdge, clearSelection],
+    [decision, sahyogStage, decide, selectedNodeId, selectedEdgeId, highlight, selectNode, selectEdge, clearSelection],
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

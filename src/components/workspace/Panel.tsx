@@ -35,15 +35,3 @@ export function Panel({
     </section>
   );
 }
-
-/** Temporary slot for panels built in later steps. */
-export function PanelPlaceholder({ step, text }: { step: number; text: string }) {
-  return (
-    <div className="flex h-full min-h-24 flex-col items-center justify-center gap-1 rounded-sm border border-dashed border-border text-center">
-      <span className="text-xs text-muted-foreground">{text}</span>
-      <span className="label-caps text-[10px] text-muted-foreground/60">
-        Step {step}
-      </span>
-    </div>
-  );
-}

@@ -2,12 +2,36 @@ import { ArrowRight, Check } from "lucide-react";
 import { progressChecklist } from "@/mock";
 import { cn } from "@/lib/utils";
 import { Panel } from "./Panel";
+import { useWorkspace } from "./WorkspaceContext";
 
 export function InvestigationProgress() {
+  const { decision, sahyogStage } = useWorkspace();
+
+  // The last mock item is "Investigator review"; its state follows the decision.
+  const base = progressChecklist.slice(0, -1);
+  const review = progressChecklist[progressChecklist.length - 1];
+  const items = [
+    ...base,
+    decision === "confirmed"
+      ? { label: "Investigator review · VASP confirmed", done: true }
+      : decision === "further"
+        ? { label: "Investigator review · further investigation", done: false }
+        : decision === "rejected"
+          ? { label: "Investigator review · attribution rejected", done: false }
+          : review,
+    ...(decision === "confirmed"
+      ? [
+          sahyogStage === "prepared"
+            ? { label: "SAHYOG request prepared", done: true }
+            : { label: "SAHYOG request", done: false },
+        ]
+      : []),
+  ];
+
   return (
     <Panel title="Investigation progress">
       <ol className="space-y-1.5">
-        {progressChecklist.map((item) => (
+        {items.map((item) => (
           <li
             key={item.label}
             className={cn(

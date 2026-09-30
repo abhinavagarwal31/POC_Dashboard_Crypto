@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import type { WorkflowStageKey } from "@/mock";
 import { CaseHeader } from "./CaseHeader";
 import { CaseSummary } from "./CaseSummary";
 import { InvestigationProgress } from "./InvestigationProgress";
-import { Panel, PanelPlaceholder } from "./Panel";
+import { Panel } from "./Panel";
 import { Inspector } from "@/components/inspector/Inspector";
 import { VaspAttribution } from "@/components/attribution/VaspAttribution";
 import { GRAPH_PANEL_ID } from "./panelIds";
@@ -14,13 +13,16 @@ import { TimelinePanel } from "@/components/timeline/TimelinePanel";
 import { FindingsPanel } from "@/components/findings/FindingsPanel";
 import { TracePath } from "./TracePath";
 import { WorkflowIndicator } from "./WorkflowIndicator";
-import { WorkspaceProvider } from "./WorkspaceContext";
+import { WorkspaceProvider, useWorkspace } from "./WorkspaceContext";
+import { ReviewPanel } from "@/components/review/ReviewPanel";
 import { MoneyFlowGraph } from "@/components/graph/MoneyFlowGraph";
 import { GraphLegend } from "@/components/graph/GraphLegend";
 
 function WorkspaceBody({ onRestart }: { onRestart: () => void }) {
-  // Trace and attribution are complete; the investigator now verifies.
-  const [stage] = useState<WorkflowStageKey>("verify");
+  // Trace and attribution are complete; the investigator verifies until a
+  // VASP is confirmed, which moves the case on to SAHYOG.
+  const { decision } = useWorkspace();
+  const stage: WorkflowStageKey = decision === "confirmed" ? "sahyog" : "verify";
 
   return (
     <motion.div
@@ -64,9 +66,7 @@ function WorkspaceBody({ onRestart }: { onRestart: () => void }) {
           <TimelinePanel />
         </div>
 
-        <Panel title="Investigator review · SAHYOG">
-          <PanelPlaceholder step={11} text="System recommendation · investigator decision · SAHYOG request" />
-        </Panel>
+        <ReviewPanel />
       </main>
     </motion.div>
   );
